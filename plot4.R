@@ -10,17 +10,31 @@ dateCon1<-consumption[consumption[,1]=="2007-02-01",]
 dateCon2<-consumption[consumption[,1]=="2007-02-02",]
 dateCon<-rbind(dateCon1,dateCon2)    
 
-timeSubmeter<-data.frame(time=strptime(paste(dateCon[,1],dateCon[,2]),"%Y-%m-%d %H:%M:%S"), dateCon[,c(7,8,9)])
+date <- strptime(paste(dateCon[,1],dateCon[,2]),"%Y-%m-%d %H:%M:%S")
+timePower<-data.frame(date, power=dateCon[,3])
+timeVoltage<-data.frame(date, dateCon[,5])
+timeSubmeter<-data.frame(date, dateCon[,c(7,8,9)])
+timeReactive<-data.frame(date, dateCon[,4])
 
+par(mfrow=c(2,2))
+plot(timePower,
+     type="l",
+     xlab="",    
+     ylab="Global Active Power (kilowatts)"
+)
+plot(timeVoltage,
+     type="l",
+     xlab="datetime",
+     ylab="Voltage"
+)
 with(timeSubmeter,{
-    plot(time,Sub_metering_1,
-         type="n",
-         xlab="",
-         ylab="Energy sub metering")
-    lines(time,Sub_metering_1,type="l",xlab="",ylab="Energy sub metering",col="black")
-    lines(time,Sub_metering_2,type="l",xlab="",ylab="Energy sub metering",col="red")
-    lines(time,Sub_metering_3,type="l",xlab="",ylab="Energy sub metering",col="blue")
+    plot(date, Sub_metering_1, type="l", xlab="", ylab="Energy sub metering",col="black")
+    lines(date, Sub_metering_1, type="l", xlab="", ylab="Energy sub metering", col="black")
+    lines(date, Sub_metering_2, type="l", xlab="", ylab="Energy sub metering", col="red")
+    lines(date, Sub_metering_3, type="l", xlab="", ylab="Energy sub metering", col="blue")
 })
-legend("topright",lty=1,xjust=300,
-       col=c("black","red","blue"),
-       legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+plot(timeReactive,
+     type="l",
+     xlab="datetime",
+     ylab="Global_reactive_power"
+)
