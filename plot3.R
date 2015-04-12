@@ -11,7 +11,7 @@ dateCon2<-consumption[consumption[,1]=="2007-02-02",]
 dateCon<-rbind(dateCon1,dateCon2)    
 
 timeSubmeter<-data.frame(time=strptime(paste(dateCon[,1],dateCon[,2]),"%Y-%m-%d %H:%M:%S"), dateCon[,c(7,8,9)])
-
+par(mfrow=c(1,1))
 with(timeSubmeter,{
     plot(time,Sub_metering_1,
                        type="n",
@@ -21,6 +21,6 @@ with(timeSubmeter,{
     lines(time,Sub_metering_2,type="l",xlab="",ylab="Energy sub metering",col="red")
     lines(time,Sub_metering_3,type="l",xlab="",ylab="Energy sub metering",col="blue")
 })
-legend("topright",lty=1,xjust=300,
+legend("topright",lty=1,cex=0.5,
        col=c("black","red","blue"),
        legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
