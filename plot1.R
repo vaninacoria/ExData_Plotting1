@@ -10,8 +10,10 @@ dateCon1<-consumption[consumption[,1]=="2007-02-01",]
 dateCon2<-consumption[consumption[,1]=="2007-02-02",]
 dateCon<-rbind(dateCon1,dateCon2)             
 
+png(file="plot1.png",width = 480, height = 480)
 hist(dateCon[,3],
      col="red",
      main="Global Active Power",
      xlab="Global Active Power (kilowatts)"
 )
+dev.off()

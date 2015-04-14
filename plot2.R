@@ -12,7 +12,9 @@ dateCon<-rbind(dateCon1,dateCon2)
 
 timePower<-data.frame(time=strptime(paste(dateCon[,1],dateCon[,2]),"%Y-%m-%d %H:%M:%S"), power=dateCon[,3])
 
+png(file="plot2.png",width = 480, height = 480)
 plot(timePower,type="l",
      xlab="",    
      ylab="Global Active Power (kilowatts)"
          )
+dev.off()

@@ -16,6 +16,7 @@ timeVoltage<-data.frame(date, dateCon[,5])
 timeSubmeter<-data.frame(date, dateCon[,c(7,8,9)])
 timeReactive<-data.frame(date, dateCon[,4])
 
+png(file="plot4.png",width = 480, height = 480)
 par(mfrow=c(2,2))
 plot(timePower,
      type="l",
@@ -27,14 +28,16 @@ plot(timeVoltage,
      xlab="datetime",
      ylab="Voltage"
 )
-with(timeSubmeter,{
-    plot(date, Sub_metering_1, type="l", xlab="", ylab="Energy sub metering",col="black")
-    lines(date, Sub_metering_1, type="l", xlab="", ylab="Energy sub metering", col="black")
-    lines(date, Sub_metering_2, type="l", xlab="", ylab="Energy sub metering", col="red")
-    lines(date, Sub_metering_3, type="l", xlab="", ylab="Energy sub metering", col="blue")
-})
+
+with(timeSubmeter, plot(date, timeSubmeter$Sub_metering_1, main = '', type = 'n', xlab = '', ylab = 'Energy sub metering'))
+lines(timeSubmeter$date, timeSubmeter$Sub_metering_1, col = "black")
+lines(timeSubmeter$date, timeSubmeter$Sub_metering_3, col = "blue")
+lines(timeSubmeter$date, timeSubmeter$Sub_metering_2, col = "red")
+legend('topright', bty = 'n', col = c('black', 'red', 'blue'), legend = c('Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3'), lwd = 2)
+
 plot(timeReactive,
      type="l",
      xlab="datetime",
      ylab="Global_reactive_power"
 )
+dev.off()
